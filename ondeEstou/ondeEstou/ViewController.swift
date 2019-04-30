@@ -14,6 +14,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBOutlet weak var mapa: MKMapView!
     var gerenciadorLocalizacao = CLLocationManager()
     
+    @IBOutlet weak var velocidadeLabel: UILabel!
+    @IBOutlet weak var latitudeLabel: UILabel!
+    @IBOutlet weak var longituteLabel: UILabel!
+    @IBOutlet weak var enderecoLabel: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +31,27 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let localizacaoUsuario = locations.last!
+        let latitude = localizacaoUsuario.coordinate.latitude
+        let longitude = localizacaoUsuario.coordinate.longitude
+        let velocidade = localizacaoUsuario.speed
+        
+        latitudeLabel.text = String (latitude)
+        longituteLabel.text = String (longitude)
+        velocidadeLabel.text = String (velocidade)
+        
+        
+        
+    }
+    
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status != .authorizedWhenInUse{
             
-            var alertaController = UIAlertController(title: "Permissão de acesso à localização!", message: "Precisamos da permissão de acesso para executar o app! Favor habilitar.", preferredStyle: .alert)
+            let alertaController = UIAlertController(title: "Permissão de acesso à localização!", message: "Precisamos da permissão de acesso para executar o app! Favor habilitar.", preferredStyle: .alert)
             
-            var acaoConfigurar = UIAlertAction(title: "Abrir Configurações", style: .default, handler: { ( altertaConfiguracoes ) in
+            let acaoConfigurar = UIAlertAction(title: "Abrir Configurações", style: .default, handler: { ( altertaConfiguracoes ) in
                 
                 if let configuracoes = NSURL (string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open (configuracoes as URL)
@@ -38,7 +59,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 }
                                 
             })
-            var acaoCancelar = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+            let acaoCancelar = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
             
             alertaController.addAction(acaoConfigurar)
             alertaController.addAction(acaoCancelar)

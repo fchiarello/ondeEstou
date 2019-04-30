@@ -92,7 +92,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.76550022520000005" green="0.90594195929999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZFR-gI-thD">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZFR-gI-thD">
                                 <rect key="frame" x="0.0" y="283" width="375" height="384"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
@@ -109,7 +109,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="enderecoLabel" destination="zbD-9p-gbG" id="hAM-Xj-8V1"/>
+                        <outlet property="latitudeLabel" destination="VZh-Nc-mOS" id="y2R-au-3Ab"/>
+                        <outlet property="longituteLabel" destination="EbP-hn-lb6" id="Wgx-sN-Lsy"/>
                         <outlet property="mapa" destination="ZFR-gI-thD" id="NYe-Bs-GHo"/>
+                        <outlet property="velocidadeLabel" destination="qpR-5Q-ng7" id="737-cH-gcw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
