@@ -37,9 +37,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let longitude = localizacaoUsuario.coordinate.longitude
         let velocidade = localizacaoUsuario.speed
         
-        latitudeLabel.text = String (latitude)
-        longituteLabel.text = String (longitude)
+        self.latitudeLabel.text = String (latitude)
+        self.longituteLabel.text = String (longitude)
+       
+        if localizacaoUsuario.speed >= 0{
         velocidadeLabel.text = String (velocidade)
+        }
         
         let latitudeDelta: CLLocationDegrees = 1000
         let longitudeDelta: CLLocationDegrees = 1000
@@ -48,6 +51,70 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         let regiao: MKCoordinateRegion = MKCoordinateRegion (center: localizacao, latitudinalMeters: latitudeDelta, longitudinalMeters: longitudeDelta)
         mapa.setRegion(regiao, animated: true)
+        
+        CLGeocoder().reverseGeocodeLocation(localizacaoUsuario) { (detalhesLocal, erro) in
+            if erro == nil {
+                if let dadosLocal = detalhesLocal?.first{
+                    
+                    var rua = ""
+                    if dadosLocal.thoroughfare != nil {
+                        rua = dadosLocal.thoroughfare!
+                    }
+                    
+                    var numero = ""
+                    if dadosLocal.subThoroughfare != nil {
+                        numero = dadosLocal.subThoroughfare!
+                    }
+                    
+                    var cidade = ""
+                    if dadosLocal.locality != nil {
+                        cidade = dadosLocal.locality!
+                    }
+                    
+                    var bairro = ""
+                    if dadosLocal.subLocality != nil {
+                        bairro = dadosLocal.subLocality!
+                    }
+                    
+                    var cep = ""
+                    if dadosLocal.postalCode != nil {
+                        cep = dadosLocal.postalCode!
+                    }
+                    
+                    var pais = ""
+                    if dadosLocal.country != nil {
+                        pais = dadosLocal.country!
+                        
+                    }
+                    
+                    var estado = ""
+                    if dadosLocal.administrativeArea != nil {
+                        estado = dadosLocal.administrativeArea!
+                        
+                    }
+                    
+                    self.enderecoLabel.text = rua + " - " +
+                                         numero + " - " +
+                                         bairro + " / " +
+                                         cidade + " - " +
+                                         estado + " / " +
+                                         pais
+                    
+                    print("\n / thoroughfare:" + rua +
+                          "\n / subthoroughfare" +  numero +
+                          "\n / locality" + cidade +
+                          "\n / subLocality " + bairro +
+                          "\n / postalCode" + cep +
+                          "\n / country" + pais +
+                          "\n / adiministrative area" + estado)
+                }
+                
+                
+                
+            }else{
+                print("erro")
+            }
+        }
         
         
     }
