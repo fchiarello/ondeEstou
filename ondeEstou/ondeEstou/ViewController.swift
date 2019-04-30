@@ -30,9 +30,20 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             var alertaController = UIAlertController(title: "Permissão de acesso à localização!", message: "Precisamos da permissão de acesso para executar o app! Favor habilitar.", preferredStyle: .alert)
             
-            var acaoConfigurar = UIAlertAction(title: "Abrir Configurações", style: .default, handler: )
+            var acaoConfigurar = UIAlertAction(title: "Abrir Configurações", style: .default, handler: { ( altertaConfiguracoes ) in
+                
+                if let configuracoes = NSURL (string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open (configuracoes as URL)
+                    
+                }
+                                
+            })
             var acaoCancelar = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
             
+            alertaController.addAction(acaoConfigurar)
+            alertaController.addAction(acaoCancelar)
+            
+            present(alertaController, animated: true, completion: nil)
             
         }
         
