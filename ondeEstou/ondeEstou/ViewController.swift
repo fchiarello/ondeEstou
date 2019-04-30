@@ -41,6 +41,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         longituteLabel.text = String (longitude)
         velocidadeLabel.text = String (velocidade)
         
+        let latitudeDelta: CLLocationDegrees = 1000
+        let longitudeDelta: CLLocationDegrees = 1000
+        let localizacao: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+        
+        
+        let regiao: MKCoordinateRegion = MKCoordinateRegion (center: localizacao, latitudinalMeters: latitudeDelta, longitudinalMeters: longitudeDelta)
+        mapa.setRegion(regiao, animated: true)
         
         
     }
